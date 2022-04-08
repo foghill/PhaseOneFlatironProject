@@ -14,6 +14,7 @@ function getLatLonFromZipCode(zipcode) {
       } catch (error) {
         console.error(error);
       }
+      // getAirQualityFromLatLon(data.lat, data.lon);
     })
     .catch((error) => console.error(error));
 }
@@ -21,19 +22,17 @@ function getLatLonFromZipCode(zipcode) {
 function getAirQualityFromLatLon(lat, lon = -74.0054) {
   const API_KEY = "f530d82e051f70b8678adc31245d778d";
   const ENDPOINT = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
-  // fetch with endpoint
+
   return fetch(ENDPOINT)
     .then((response) => response.json())
     .then((data) => {
-      //console.log(data);
+      // console.log(data);
 
-      // create air quality variables as they are returned from the json object
       const NO2 = data.list[0].components.no2;
       const PM10 = data.list[0].components.pm10;
       const O3 = data.list[0].components.o3;
       const PM25 = data.list[0].components.pm2_5;
 
-      //create object to be returned
       let obj = {
         lat: lat,
         lon: lon,
@@ -49,15 +48,13 @@ function getAirQualityFromLatLon(lat, lon = -74.0054) {
     .catch((error) => console.error(error));
 }
 
-//initialize DOM
-
 const init = () => {
   const inputForm = document.querySelector("form");
   inputForm.addEventListener("submit", (event) => {
-    //prevent form from refreshing page upon submit
     event.preventDefault();
-    //validate that zipcode is in right format
-    //must be 00001-99950
+    const zipcode = document.getElementById("zipcode").value;
+    // validate zipcode
+    // 00001 – 99950
     let isValidZip =
       /^(\d{5})?$/.test(zipcode) &&
       parseInt(zipcode) > 0 &&
