@@ -1,12 +1,17 @@
 function getLatLonFromZipCode(zipcode) {
+  // connect to zipcode API to get longitude and latitude values for a zipcode input
   const API_KEY = "f530d82e051f70b8678adc31245d778d";
   const ENDPOINT = `https://api.openweathermap.org/geo/1.0/zip?zip=${zipcode}&appid=${API_KEY}`;
+
+  // fetch from API and receive json object as a response
 
   return fetch(ENDPOINT)
     .then((response) => response.json())
     .then((data) => {
       let airQuality = {};
       console.log(`lat:${data.lat}, lon:${data.lon}`);
+      // do an error check & trigger callbackfunction and pass received lat and lon data as a parameter
+
       try {
         let airQuality = getAirQualityFromLatLon(data.lat, data.lon);
         // console.log ("getLatLonFromZipCode", JSON.stringify(airQuality));
