@@ -66,11 +66,34 @@ const init = () => {
       parseInt(zipcode) <= 99950;
     if (isValidZip) {
       getLatLonFromZipCode(zipcode).then((data) => {
-        const MINSUM = 130;
-        if (data.sum <= MINSUM) {
-          document.body.style.backgroundColor = "green";
-        } else {
-          document.body.style.backgroundColor = "red";
+        switch (true) {
+          case data.sum > 0 && data.sum <= 50:
+            document.body.style.background =
+              "linear-gradient(121deg, rgba(179,237,148,1) 0%, rgba(43,102,11,1) 100%)";
+            break;
+          case data.sum > 50 && data.sum <= 100:
+            document.body.style.background =
+              "linear-gradient(121deg, rgba(241,225,124,1) 0%, rgba(255,255,0,1) 100%)";
+            break;
+          case data.sum > 100 && data.sum <= 150:
+            document.body.style.background =
+              "linear-gradient(121deg, rgba(255,206,123,1) 0%, rgba(255,83,0,1) 100%)";
+            break;
+          case data.sum > 150 && data.sum <= 200:
+            document.body.style.background =
+              "linear-gradient(121deg, rgba(228,127,127,1) 0%, rgba(190,63,63,1) 100%)";
+            break;
+          case data.sum > 200 && data.sum <= 300:
+            document.body.style.background =
+              "linear-gradient(121deg, rgba(190,127,228,1) 0%, rgba(190,63,158,1) 100%)";
+            break;
+          case data.sum > 300:
+            document.body.style.background =
+              "linear-gradient(121deg, rgba(62,27,27,1) 0%, rgba(122,9,9,1) 100%)";
+            break;
+          default:
+            text = "invalid input";
+            break;
         }
       });
     } else {

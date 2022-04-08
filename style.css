@@ -19,3 +19,11 @@
     font-size: 1rem;
     color: whitesmoke;
 }
+
+h2{
+    color: rgb(24, 14, 166);
+}
+
+body {
+    text-align: center;
+    background: rgba(255,191,4,1)
