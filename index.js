@@ -76,3 +76,11 @@ const init = () => {
     }
   });
 };
+
+document.addEventListener("DOMContentLoaded", init);
+
+//geolocatiion API that takes in ZIP code and spits out lat and longitude
+
+// http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
+
+// http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid=f530d82e051f70b8678adc31245d778d
