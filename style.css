@@ -9,3 +9,13 @@
     color: whitesmoke;
 }
 
+#zipcode{
+    height: 50px;
+    padding: 0px 20px;
+    background-color:  rgba(0,0,0,.1);
+    border-radius: 50px;
+	width: 20%;
+	text-align: left;
+    font-size: 1rem;
+    color: whitesmoke;
+}
