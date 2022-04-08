@@ -32,5 +32,19 @@ function getAirQualityFromLatLon(lat, lon = -74.0054) {
       const PM10 = data.list[0].components.pm10;
       const O3 = data.list[0].components.o3;
       const PM25 = data.list[0].components.pm2_5;
-    });
+
+      //create object to be returned
+      let obj = {
+        lat: lat,
+        lon: lon,
+        no2: NO2,
+        pm10: PM10,
+        o3: O3,
+        pm2_5: PM25,
+        sum: NO2 + PM10 + O3 + PM25,
+      };
+      console.log("getAirQualityFromLatLon", JSON.stringify(obj));
+      return obj;
+    })
+    .catch((error) => console.error(error));
 }
