@@ -48,3 +48,13 @@ function getAirQualityFromLatLon(lat, lon = -74.0054) {
     })
     .catch((error) => console.error(error));
 }
+
+//initialize DOM
+
+const init = () => {
+  const inputForm = document.querySelector("form");
+  inputForm.addEventListener("submit", (event) => {
+    //prevent form from refreshing page upon submit
+    event.preventDefault();
+  });
+};
