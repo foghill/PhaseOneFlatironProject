@@ -17,3 +17,5 @@ function getLatLonFromZipCode(zipcode) {
     })
     .catch((error) => console.error(error));
 }
+
+function getAirQualityFromLatLon(lat, lon = -74.0054) {}
