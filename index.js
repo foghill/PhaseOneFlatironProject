@@ -24,5 +24,13 @@ function getAirQualityFromLatLon(lat, lon = -74.0054) {
   // fetch with endpoint
   return fetch(ENDPOINT)
     .then((response) => response.json())
-    .then((data) => {});
+    .then((data) => {
+      //console.log(data);
+
+      // create air quality variables as they are returned from the json object
+      const NO2 = data.list[0].components.no2;
+      const PM10 = data.list[0].components.pm10;
+      const O3 = data.list[0].components.o3;
+      const PM25 = data.list[0].components.pm2_5;
+    });
 }
