@@ -56,5 +56,23 @@ const init = () => {
   inputForm.addEventListener("submit", (event) => {
     //prevent form from refreshing page upon submit
     event.preventDefault();
+    //validate that zipcode is in right format
+    //must be 00001-99950
+    let isValidZip =
+      /^(\d{5})?$/.test(zipcode) &&
+      parseInt(zipcode) > 0 &&
+      parseInt(zipcode) <= 99950;
+    if (isValidZip) {
+      getLatLonFromZipCode(zipcode).then((data) => {
+        const MINSUM = 130;
+        if (data.sum <= MINSUM) {
+          document.body.style.backgroundColor = "green";
+        } else {
+          document.body.style.backgroundColor = "red";
+        }
+      });
+    } else {
+      alert("please enter valid zip code");
+    }
   });
 };
