@@ -96,6 +96,19 @@ const init = () => {
             text = "invalid input";
             break;
         }
+        // adding logic for lat and lon display
+        const airQuality = data.sum;
+        document.getElementById("lat").innerText = `Latitude = ${data.lat}`;
+        document.getElementById("lon").innerText = `Longitude = ${data.lon}`;
+        //added google map URL
+        const googleMapURL = `https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lon}`;
+        document.getElementById("map").setAttribute("href", googleMapURL);
+        //fill in table
+        document.getElementById("no2").innerText = data.no2;
+        document.getElementById("o3").innerText = data.o3;
+        document.getElementById("pm10").innerText = data.pm10;
+        document.getElementById("pm25").innerText = data.pm2_5;
+        document.getElementById("table").hidden = false;
       });
     } else {
       alert("please enter valid zip code");
@@ -104,6 +117,16 @@ const init = () => {
 };
 
 document.addEventListener("DOMContentLoaded", init);
+
+//added reset Event Listener on 'onclick'
+function resetForm() {
+  document.getElementById("zipcode").value = "";
+}
+
+function changeLabelColor(label, color) {
+  var element = document.getElementById(label);
+  element.classList.add(color);
+}
 
 //geolocatiion API that takes in ZIP code and spits out lat and longitude
 
