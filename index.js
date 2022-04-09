@@ -61,6 +61,7 @@ const init = () => {
     // validate zipcode
     // 00001 – 99950
     let isValidZip =
+      //RegEx expression logic below to test for five numbers betwen the range
       /^(\d{5})?$/.test(zipcode) &&
       parseInt(zipcode) > 0 &&
       parseInt(zipcode) <= 99950;
