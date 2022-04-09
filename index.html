@@ -1,20 +1,36 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js"></script>
-    <title>get Air Quality from Zipcode</title>
+      <link
+    async
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/semantic-ui@2/dist/semantic.min.css"
+  />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui-react/2.1.2/semantic-ui-react.min.js"></script>
+<script src="index.js"></script>
+    <title>Get Air Quality from ZIP Code</title>
   </head>
   <body>
-    <h2>Get Air Quality from Zipcode</h2>
+    <h2>Get Air Quality from ZIP Code</h2>
 
-    <section>
+    <div class="ui container"
       <form>
-        <input id="zipcode" type="text" placeholder="Enter zipcode" required />
-        <input id="button" type="submit" />
+<!--         <input id="zipcode" type="text" placeholder="Enter zipcode" required /> -->
+        <div class="ui input"><input id="zipcode" type="text" placeholder="Enter ZIP Code..." required/><i aria-hidden="true" class="search"></i></div>
+<!--         <input id="button" type="submit" /> -->
+        <button class="ui green button" type="submit">Submit</button>
       </form>
-    </section>
+    </div>
+
+            
+    <div class="ui container">
+ 
+    <div id="lat" class="ui label" style="margin-top: 50px"><i aria-hidden="true"></i>Latitude: ?</div>
+      <div id="lon" class="ui label"><i aria-hidden="true"></i>Longitude: ?</div>
+      
+    </div>
   </body>
 </html>
