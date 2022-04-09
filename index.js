@@ -55,6 +55,18 @@ function getAirQualityFromLatLon(lat, lon = -74.0054) {
 
 const init = () => {
   const inputForm = document.querySelector("form");
+
+  const NO2_MESSAGE = "Hi, I'm No2";
+  // const NO2_MESSAGE = "Hi, I'm No2";
+  // const NO2_MESSAGE = "Hi, I'm No2";
+  // const NO2_MESSAGE = "Hi, I'm No2";
+
+  setEventListenerOnLabel("no2_label", NO2_MESSAGE); // mouseover table header
+  // setEventListenerOnLabel("no2", NO2_MESSAGE);
+  // setEventListenerOnLabel("no2", NO2_MESSAGE);
+  // setEventListenerOnLabel("no2", NO2_MESSAGE);
+  // setEventListenerOnLabel("no2", NO2_MESSAGE);
+
   inputForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const zipcode = document.getElementById("zipcode").value;
@@ -69,28 +81,22 @@ const init = () => {
       getLatLonFromZipCode(zipcode).then((data) => {
         switch (true) {
           case data.sum > 0 && data.sum <= 50:
-            document.body.style.background =
-              "linear-gradient(121deg, rgba(179,237,148,1) 0%, rgba(43,102,11,1) 100%)";
+            updateUI("green", data.sum);
             break;
           case data.sum > 50 && data.sum <= 100:
-            document.body.style.background =
-              "linear-gradient(121deg, rgba(241,225,124,1) 0%, rgba(255,255,0,1) 100%)";
+            updateUI("blue", data.sum);
             break;
           case data.sum > 100 && data.sum <= 150:
-            document.body.style.background =
-              "linear-gradient(121deg, rgba(255,206,123,1) 0%, rgba(255,83,0,1) 100%)";
+            updateUI("purple", data.sum);
             break;
           case data.sum > 150 && data.sum <= 200:
-            document.body.style.background =
-              "linear-gradient(121deg, rgba(228,127,127,1) 0%, rgba(190,63,63,1) 100%)";
+            updateUI("yellow", data.sum);
             break;
           case data.sum > 200 && data.sum <= 300:
-            document.body.style.background =
-              "linear-gradient(121deg, rgba(190,127,228,1) 0%, rgba(190,63,158,1) 100%)";
+            updateUI("orange", data.sum);
             break;
           case data.sum > 300:
-            document.body.style.background =
-              "linear-gradient(121deg, rgba(62,27,27,1) 0%, rgba(122,9,9,1) 100%)";
+            updateUI("red", data.sum);
             break;
           default:
             text = "invalid input";
@@ -118,14 +124,52 @@ const init = () => {
 
 document.addEventListener("DOMContentLoaded", init);
 
+// This handler will be executed every time the cursor
+// is moved over a different list item
+
+// get each table label and set an event listenter
+
+const hideMessageContainer = () => {
+  document.getElementById("messageContainer").hidden = true;
+};
+
+function setEventListenerOnLabel(elementID, message) {
+  let el = document.getElementById(elementID);
+  el.addEventListener(
+    "mouseover",
+    function (event) {
+      setMessage(message);
+    },
+    false
+  );
+  el.addEventListener(
+    "mouseout",
+    function (event) {
+      // hideMessageContainer();
+    },
+    false
+  );
+}
+
 //added reset Event Listener on 'onclick'
 function resetForm() {
   document.getElementById("zipcode").value = "";
 }
 
-function changeLabelColor(label, color) {
-  var element = document.getElementById(label);
+function updateUI(color, value) {
+  var element = document.getElementById("air-quality-index");
   element.classList.add(color);
+  element.innerText = `AQI = ${value}`;
+}
+
+function setMessage(message) {
+  // udpate message
+
+  let messageContainer = document.getElementById("messageContainer");
+  messageContainer.hidden = false; // unhiding message container
+  // console.log("messageContainer", messageContainer);
+  let msgDiv = document.getElementById("message");
+  msgDiv.innerHTML = message;
 }
 
 //geolocatiion API that takes in ZIP code and spits out lat and longitude
@@ -135,3 +179,7 @@ function changeLabelColor(label, color) {
 // http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid=f530d82e051f70b8678adc31245d778d
 
 //working from replit.com
+
+//mouseover event over the value of the table headers that triggers a function that displays descriptors
+// mouse exit?
+// create id's for tableheaders

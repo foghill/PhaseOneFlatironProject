@@ -13,10 +13,10 @@
     <script src="index.js"></script>
     <script src="semantic.js"></script>
     <link rel="stylesheet" href="semantic.css" />
-    <title>Get Air Quality from ZIP Code</title>
+    <title>Get Air Quality</title>
   </head>
   <body>
-    <h2>Get Air Quality from ZIP Code</h2>
+    <h2>Get Air Quality</h2>
 
     <div class="ui container">
       <form>
@@ -58,10 +58,10 @@
       >
         <thead class="">
           <tr class="">
-            <th class="">NO2</th>
-            <th class="">PM10</th>
-            <th class="">O3</th>
-            <th class="">PM25</th>
+            <th id="no2_label" class="">NO2</th>
+            <th id="pm10_label" class="">PM10</th>
+            <th id="03_label" class="">O3</th>
+            <th id="pm25_label" class="">PM25</th>
           </tr>
         </thead>
         <tbody class="">
@@ -73,6 +73,12 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- <div class="ui container"></div> -->
+    <div id="messageContainer" class="ui message">
+      <div class="header">Description</div>
+      <p id="message"></p>
     </div>
   </body>
 </html>
