@@ -57,15 +57,14 @@ const init = () => {
   const inputForm = document.querySelector("form");
 
   const NO2_MESSAGE = "Hi, I'm No2";
-  // const NO2_MESSAGE = "Hi, I'm No2";
-  // const NO2_MESSAGE = "Hi, I'm No2";
-  // const NO2_MESSAGE = "Hi, I'm No2";
+  const O3_MESSAGE = "Hi, I'm O3";
+  const PM10_MESSAGE = "Hi, I'm PM10";
+  const PM25MESSAGE = "Hi, I'm PM25";
 
   setEventListenerOnLabel("no2_label", NO2_MESSAGE); // mouseover table header
-  // setEventListenerOnLabel("no2", NO2_MESSAGE);
-  // setEventListenerOnLabel("no2", NO2_MESSAGE);
-  // setEventListenerOnLabel("no2", NO2_MESSAGE);
-  // setEventListenerOnLabel("no2", NO2_MESSAGE);
+  setEventListenerOnLabel("03_label", O3_MESSAGE);
+  setEventListenerOnLabel("pm10_label", PM10_MESSAGE);
+  setEventListenerOnLabel("pm25_label", PM25MESSAGE);
 
   inputForm.addEventListener("submit", (event) => {
     event.preventDefault();
