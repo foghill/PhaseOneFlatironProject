@@ -56,10 +56,14 @@ function getAirQualityFromLatLon(lat, lon = -74.0054) {
 const init = () => {
   const inputForm = document.querySelector("form");
 
-  const NO2_MESSAGE = "Hi, I'm No2";
-  const O3_MESSAGE = "Hi, I'm O3";
-  const PM10_MESSAGE = "Hi, I'm PM10";
-  const PM25MESSAGE = "Hi, I'm PM25";
+  const NO2_MESSAGE =
+    "Nitrogen Dioxide (NO2) is one of a group of highly reactive gases known as oxides of nitrogen or nitrogen oxides ";
+  const O3_MESSAGE =
+    "Elevated exposures to Ozone can affect sensitive vegetation and ecosystems, including forests, parks, wildlife refuges and wilderness areas.";
+  const PM10_MESSAGE =
+    "PM10 is any particulate matter in the air with a diameter of 10 micrometers or less, including smoke, dust, soot, salts, acids, and metals.";
+  const PM25MESSAGE =
+    "I'm PM25, look at my younger brother PM10 for a description of what I am";
 
   setEventListenerOnLabel("no2_label", NO2_MESSAGE); // mouseover table header
   setEventListenerOnLabel("03_label", O3_MESSAGE);
