@@ -15,8 +15,11 @@
     <link rel="stylesheet" href="semantic.css" />
     <title>Get Air Quality</title>
   </head>
-  <body>
-    <h2>Get Air Quality</h2>
+  <body style="max-width: 80%; margin: auto;">
+    <h1>Get Air Quality</h1>
+    <p>
+      Enter a Zip Code and press submit. The air quality index for the given location will be reported.
+    </p>
 
     <div class="ui container">
       <form>
@@ -37,20 +40,29 @@
     <div class="ui center container">
 
     <div style="margin: 30px">
-      <div class="ui label">Latitude<div class="detail" id="lat" >?</div></div>
-      <div class="ui label">Longitude<div class="detail" id="lon">?</div></div>
-      <div class="ui label">AQI<div class="detail" id="air-quality-index">?</div></div>
-      <a class="ui label"id="map" href="#" target="_blank"><i aria-hidden="true" class="">View on map</i></a>
+      <div class="ui big label">Latitude<div class="detail" id="lat" >?</div></div>
+      <div class="ui big label">Longitude<div class="detail" id="lon">?</div></div>
+      <div class="ui big label" id="aqiLabel">AQI<div class="detail" id="air-quality-index">?</div></div>
+      <a class="ui big label"id="map" href="#" target="_blank"><i aria-hidden="true" class="">View on map</i></a>
     </div>
 
     </div>
 
     </div>
 
-    <div id ='summary_table 'class="ui container">
+
+
+
+
+    <div id ='summary_table 'class="ui container" textAlign="center">
+<!-- 
+      <div class="" style="margin:30px">
+        <p>Hover over column headers to see description</p>
+      </div> -->
+
       <table id="table" class="ui celled table" hidden="true">
         <thead class="">
-          <tr class="">
+          <tr class=""  style="text-align: center;">
             <th id="no2_label" class="">NO2</th>
             <th id="pm10_label" class="">PM10</th>
             <th id="03_label" class="">O3</th>
@@ -58,7 +70,7 @@
           </tr>
         </thead>
         <tbody class="">
-          <tr class="">
+          <tr class="" style="text-align: center;">
             <td id="no2" class=""></td>
             <td id="pm10" class=""></td>
             <td id="o3" class=""></td>
@@ -68,7 +80,7 @@
       </table>
     </div>
 
-    <div id="messageContainer" class="">
+    <div id="messageContainer" class="" style="margin:30px">
       <!-- <div class="header">Description</div> -->
       <p id="message"></p>
     </div>

@@ -75,13 +75,13 @@ function getAirQualityFromLatLon(lat, lon) {
 
 function setupLabelRolloverMessages() {
   const NO2_MESSAGE =
-    "Nitrogen Dioxide (NO2) is one of a group of highly reactive gases known as oxides of nitrogen or nitrogen oxides ";
+    "Nitrogen Dioxide (NO2) is one of a group of highly reactive gases known as oxides of nitrogen or nitrogen oxides.";
   const O3_MESSAGE =
     "Elevated exposures to Ozone can affect sensitive vegetation and ecosystems, including forests, parks, wildlife refuges and wilderness areas.";
   const PM10_MESSAGE =
     "PM10 is any particulate matter in the air with a diameter of 10 micrometers or less, including smoke, dust, soot, salts, acids, and metals.";
   const PM25MESSAGE =
-    "I'm PM25, look at my younger brother PM10 for a description of what I am";
+    "I'm PM25, look at my younger brother PM10 for a description of what I am.";
 
   setEventListenerOnLabel("no2_label", NO2_MESSAGE); // mouseover table header function. Wanted to capture mouseover event on a label and when there is a mouseover, display a message. Takes ID of label as parameter, the second parameter is the message. Event Listener for a mouseover event
   setEventListenerOnLabel("03_label", O3_MESSAGE);
@@ -166,6 +166,13 @@ document.addEventListener("DOMContentLoaded", init);
 function setEventListenerOnLabel(elementID, message) {
   let el = document.getElementById(elementID);
   el.addEventListener("mouseover", function (event) {
+    el.style.color = "purple"; // change label color to red on mouseover
+    el.style.cursor = "pointer";
+    setMessage(message);
+  });
+  el.addEventListener("mouseout", function (event) {
+    el.style.color = "black";
+    el.style.cursor = "default";
     setMessage(message);
   });
 }
@@ -178,8 +185,12 @@ function resetForm() {
 }
 
 function updateAqiLabel(color, value) {
-  var element = document.getElementById("air-quality-index");
+  // set label color
+  let element = document.getElementById("aqiLabel");
   element.classList.add(color);
+
+  // label value
+  element = document.getElementById("air-quality-index");
   element.innerText = `${Math.round(value)}`;
 }
 
