@@ -140,8 +140,8 @@ const init = () => {
         }
         // adding logic for lat and lon display
         //updating the UI with the data that I got back. Updating the DOM with data I got back
-        document.getElementById("lat").innerText = `Latitude = ${data.lat}`;
-        document.getElementById("lon").innerText = `Longitude = ${data.lon}`;
+        document.getElementById("lat").innerText = `${data.lat}`;
+        document.getElementById("lon").innerText = `${data.lon}`;
         //added google map URL
         const googleMapURL = `https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lon}`;
         document.getElementById("map").setAttribute("href", googleMapURL);
@@ -180,7 +180,7 @@ function resetForm() {
 function updateAqiLabel(color, value) {
   var element = document.getElementById("air-quality-index");
   element.classList.add(color);
-  element.innerText = `AQI = ${Math.round(value)}`;
+  element.innerText = `${Math.round(value)}`;
 }
 
 //given a message string, update the message container
