@@ -190,18 +190,23 @@ function setEventListenerOnLabel(elementID, message) {
 //added Event Listener on 'onclick' event
 //this is for the Reset button. This gets called by the Reset button. It resets the text on the field when Reset is hit.
 function resetForm() {
-    document.getElementById("zipcode").value = "";
+    // document.getElementById("zipcode").value = ""; Not needed anymyore since I opted for page reload.
     location.reload();
 }
 
 function updateAqiLabel(color, value) {
-    // set label color
-    let element = document.getElementById("aqiLabel");
-    element.classList.add(color);
+    //putting this in a try/catch because it could fail if the aqiLabel ID isn't fetched correctly from the HTML file
+    try {
+        // set label color
+        document.getElementById("aqiLabel").classList.add(color);
 
-    // label value
-    element = document.getElementById("air-quality-index");
-    element.innerText = `${Math.round(value)}`;
+        // label value
+        document.getElementById("air-quality-index").innerText = `${Math.round(
+      value
+    )}`;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 //given a message string, update the message container
