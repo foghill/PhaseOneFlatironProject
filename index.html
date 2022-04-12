@@ -1,89 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="index.js"></script>
     <script src="semantic.js"></script>
     <link rel="stylesheet" href="semantic.css" />
     <title>Get Air Quality</title>
-  </head>
-  <body style="max-width: 80%; margin: auto;">
+</head>
+
+<body style="max-width: 80%; margin: auto;">
     <h1>Get Air Quality</h1>
     <p>
-      Enter a Zip Code and press submit. The air quality index for the given location will be reported. <br>AQI between 0-100 is considered good, 100-250 is considered average, and anything over 250 starts to be considered poor.
+        Enter a Zip Code and press submit. The air quality index for the given location will be reported.
     </p>
-
+    <p>AQI between 0-100 is considered good, 100-250 is considered average, and anything over 250 is considered poor.</p>
     <div class="ui container">
-      <form>
-        <div class="ui input">
-          <input
-            id="zipcode"
-            type="text"
-            placeholder="Enter ZIP Code..."
-            required
-          />
-          <i aria-hidden="true" class="search"></i>
-        </div>
-        <button class="ui green button" type="submit">Submit</button>
-        <button class="ui button" onclick="resetForm()">Reset</button>
-      </form>
+        <!-- this is the form where zipcode is inputted. This is where the reset button is created. There is an click event attached to the Reset button -->
+        <form>
+            <div class="ui input">
+                <input id="zipcode" type="text" placeholder="Enter ZIP Code..." required />
+                <i aria-hidden="true" class="search"></i>
+            </div>
+            <button class="ui green button" type="submit">Submit</button>
+            <button class="ui button" onclick="resetForm()">Reset</button>
+        </form>
     </div>
-
+    <!-- this is the container where the results are displayed -->
     <div class="ui center container">
 
-    <div style="margin: 30px">
-      <div class="ui big label">Latitude<div class="detail" id="lat" >?</div></div>
-      <div class="ui big label">Longitude<div class="detail" id="lon">?</div></div>
-      <div class="ui big label" id="aqiLabel">AQI<div class="detail" id="air-quality-index">?</div></div>
-      <a class="ui big label"id="map" href="#" target="_blank"><i aria-hidden="true" class="">View on map</i></a>
+        <div style="margin: 30px">
+            <div class="ui big label">Latitude
+                <div class="detail" id="lat">?</div>
+            </div>
+            <div class="ui big label">Longitude
+                <div class="detail" id="lon">?</div>
+            </div>
+            <div class="ui big label" id="aqiLabel">AQI
+                <div class="detail" id="air-quality-index">?</div>
+            </div>
+            <!-- this is where the map button is created. The id is being reference by index.js to set the href attribute to the google maps URL -->
+            <a class="ui big label" id="map" href="#" target="_blank"><i aria-hidden="true" class="">View on map</i></a>
+        </div>
     </div>
-
     </div>
+    <!-- this is where the table where the descriptors and elements are generated -->
+    <div id='summary_table ' class="ui container" textAlign="center">
 
+        <table id="table" class="ui celled table" hidden="true">
+            <thead class="">
+                <tr class="" style="text-align: center;">
+                    <th id="no2_label" class="">NO2</th>
+                    <th id="pm10_label" class="">PM10</th>
+                    <th id="03_label" class="">O3</th>
+                    <th id="pm25_label" class="">PM25</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr class="" style="text-align: center;">
+                    <td id="no2" class=""></td>
+                    <td id="pm10" class=""></td>
+                    <td id="o3" class=""></td>
+                    <td id="pm25" class=""></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-
-
-
-
-    <div id ='summary_table 'class="ui container" textAlign="center">
-<!-- 
-      <div class="" style="margin:30px">
-        <p>Hover over column headers to see description</p>
-      </div> -->
-
-      <table id="table" class="ui celled table" hidden="true">
-        <thead class="">
-          <tr class=""  style="text-align: center;">
-            <th id="no2_label" class="">NO2</th>
-            <th id="pm10_label" class="">PM10</th>
-            <th id="03_label" class="">O3</th>
-            <th id="pm25_label" class="">PM25</th>
-          </tr>
-        </thead>
-        <tbody class="">
-          <tr class="" style="text-align: center;">
-            <td id="no2" class=""></td>
-            <td id="pm10" class=""></td>
-            <td id="o3" class=""></td>
-            <td id="pm25" class=""></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+    <!-- this is where the message is displayed as a string -->
     <div id="messageContainer" class="" style="margin:30px">
-      <!-- <div class="header">Description</div> -->
-      <p id="message"></p>
+        <p id="message"></p>
     </div>
-  </body>
-</html>
+</body>
 
+</html>
