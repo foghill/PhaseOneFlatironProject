@@ -119,23 +119,24 @@ const init = () => {
                         break;
                         // test for fair air quality
                     case airQualityIndex > 50 && airQualityIndex <= 100:
-                        updateAqiLabel("blue", airQualityIndex);
+                        updateAqiLabel("olive", airQualityIndex);
                         break;
                     case airQualityIndex > 100 && airQualityIndex <= 150:
-                        updateAqiLabel("purple", airQualityIndex);
+                        updateAqiLabel("orange", airQualityIndex);
                         break;
                     case airQualityIndex > 150 && airQualityIndex <= 200:
                         updateAqiLabel("yellow", airQualityIndex);
                         break;
                     case airQualityIndex > 200 && airQualityIndex <= 300:
-                        updateAqiLabel("orange", airQualityIndex);
+                        updateAqiLabel("violet", airQualityIndex);
                         break;
                         // test for bad air quality
                     case airQualityIndex > 300:
+                        console.log(airQualityIndex);
                         updateAqiLabel("red", airQualityIndex);
                         break;
                     default:
-                        text = "invalid input";
+                        // text = "invalid input";
                         break;
                 }
                 // adding logic for lat and lon display
@@ -198,7 +199,10 @@ function updateAqiLabel(color, value) {
     //putting this in a try/catch because it could fail if the aqiLabel ID isn't fetched correctly from the HTML file
     try {
         // set label color
-        document.getElementById("aqiLabel").classList.add(color);
+        let element = document.getElementById("aqiLabel");
+        //set class to empty because otherwise color was getting added and appended in a weird way. better to reset class this way.
+        element.className = ""; // reset to emplty class list
+        element.classList.add("ui", "big", "label", color);
 
         // label value
         document.getElementById("air-quality-index").innerText = `${Math.round(
