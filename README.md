@@ -58,3 +58,6 @@ We are also including a simple button to link out to Google Maps to view the coo
 A UI library called Semantic UI is used to help beautify the page:
 
 Semantic UI: https://semantic-ui.com/
+
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/foghill/PhaseOneFlatironProject)
+![GitHub repo size](https://img.shields.io/github/repo-size/foghill/PhaseOneFlatironProject)

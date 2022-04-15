@@ -110,10 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
   setupLabelRolloverMessages();
   inputForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    // let incrementDiv = document.getElementById("incrementDiv");
-    // console.log(incrementDiv);
-    // debugger;
-    // incrementDiv.innerText = parseInt(incrementDiv) ++;
 
     const zipcode = document.getElementById("zipcode").value;
     // event.target.reset();
