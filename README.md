@@ -16,7 +16,7 @@ Calling the OpenWeather API initially returns an object which contains:
 4. Longitude
 5. Country
 
-For example, this is the object returned when a zipcode of '10014' was typed in.
+For example, this is the object returned when a zipcode of _10014_ was typed in.
 
 {zip: '10014', name: 'New York', lat: 40.7339, lon: -74.0054, country: 'US'}
 
@@ -28,36 +28,31 @@ We are then using the data points of latitude and longitude to retrieve the Air 
 
 This second API response returns a new object containing some useful information for us:
 
-Coordinates from the specified location (latitude, longitude)
-
-Сoncentration of NO2 (Nitrogen dioxide), μg/m3
-Сoncentration of O3 (Ozone), μg/m3
-Сoncentration of PM2.5 (Fine particles matter), μg/m3
-Сoncentration of PM10 (Coarse particulate matter), μg/m3
+1. Coordinates from the specified location (latitude, longitude)
+2. Сoncentration of NO2 (Nitrogen dioxide)
+3. Сoncentration of O3 (Ozone)
+4. Сoncentration of PM2.5 (Fine particles matter)
+5. Сoncentration of PM10 (Coarse particulate matter)
 
 These values are displayed in a table once the user submits the zip code.
 
-We are then performing some simple logic on these measurements. We are summing them, and attributing a final measurement we call AQI (Air Quality index) to those lat/lon coordinates, which can be iinterpreted in the following manner:
+We are then performing some simple logic on these measurements. We are summing them, and calling that number AQI (Air Quality index) which are referenced in a Key and can be interpreted in the following manner:
 
-- 0 -50 Good (color:green)
+- 0 -50 Good
 
-- 51-100 OK (color:olive)
+- 51-100 OK
 
-- 101-150 Fair (color:orange)
+- 101-150 Fair
 
-- 151-200 Bad (color:yellow)
+- 151-200 Bad
 
-- 201-300 Poor (color:purple)
+- 201-300 Poor
 
-- more than 300 Dangerous (color:red)
-
-The AQI button populates a certain color for easy visual reference.
+- more than 300 Dangerous
 
 We are also including a simple button to link out to Google Maps to view the coordinates.
 
-A UI library called Semantic is used to help beautify the page:
-
-[Semantic UI](https://semantic-ui.com/)
+A UI library called Semantic is used to help beautify the page: [Semantic UI](https://semantic-ui.com/)
 
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/foghill/PhaseOneFlatironProject)
 ![GitHub repo size](https://img.shields.io/github/repo-size/foghill/PhaseOneFlatironProject)
