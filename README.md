@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a simple one-page web app with a simple goal: to retrieve air quality measurements from any given U.S. zipcode
+This is a simple one-page web app with a simple goal: to retrieve air quality measurements from any given U.S. Zip code
 
 We will use the OpenWeather API, which is robust and free but does require an API Key.
 
@@ -16,13 +16,13 @@ Calling the OpenWeather API initially returns an object which contains:
 4. Longitude
 5. Country
 
-For example, this is the object returned when a zipcode of _10014_ was typed in.
+For example, this is the object returned when a Zip code of _10014_ was typed in.
 
 {zip: '10014', name: 'New York', lat: 40.7339, lon: -74.0054, country: 'US'}
 
 As you may have noticed, there are no Air Quality Measurements in this object.
 
-That is because the inital GET request is only useful to us by returning the latitude and longitude coordinates.
+That is because the initial GET request is only useful to us by returning the latitude and longitude coordinates.
 
 We are then using the data points of latitude and longitude to retrieve the Air Quality Measurements through a second API call.
 
@@ -36,7 +36,7 @@ This second API response returns a new object containing some useful information
 
 These values are displayed in a table once the user submits the zip code.
 
-We are then performing some simple logic on these measurements. We are summing them, and calling that number AQI (Air Quality index) which are referenced in a Key and can be interpreted in the following manner:
+We are then performing some simple logic on these measurements. We are summing them, and calling that number the AQI (Air Quality Index) which are referenced in a Key and can be interpreted in the following manner:
 
 - 0 -50 Good
 
