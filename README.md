@@ -10,11 +10,11 @@ We will use the OpenWeather API, which is robust and free but does require an AP
 
 Calling the OpenWeather API initially returns an object which contains:
 
-zip: Zip code
-name: City Name
-latitude
-longitude
-country
+1. Zip code
+2. City Name
+3. Latitude
+4. Longitude
+5. Country
 
 For example, this is the object returned when a zipcode of '10014' was typed in.
 
@@ -55,9 +55,9 @@ The AQI button populates a certain color for easy visual reference.
 
 We are also including a simple button to link out to Google Maps to view the coordinates.
 
-A UI library called Semantic UI is used to help beautify the page:
+A UI library called Semantic is used to help beautify the page:
 
-Semantic UI: https://semantic-ui.com/
+[Semantic UI](https://semantic-ui.com/)
 
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/foghill/PhaseOneFlatironProject)
 ![GitHub repo size](https://img.shields.io/github/repo-size/foghill/PhaseOneFlatironProject)
