@@ -8,9 +8,10 @@ function getAQIforZipcode(zipcode) {
 
     .then((data) => {
             console.log(data);
-
             console.log(`lat:${data.lat}, lon:${data.lon}`);
-            try {} catch (error) {
+            try {
+                return getAirQualityFromLatLon(data.lat, data.lon);
+            } catch (error) {
                 return -1;
                 console.error(error);
             }
@@ -43,7 +44,6 @@ function getAirQualityFromLatLon(lat, lon) {
                 pm2_5: PM25,
                 sum: NO2 + PM10 + O3 + PM25, //calculating the Air Quality Index by summing various elements
             };
-            // console.log("getAirQualityFromLatLon", JSON.stringify(obj));
             return obj;
         })
         .catch((error) => console.error(error));
@@ -70,12 +70,12 @@ function setEventListenerOnLabel(elementID, message) {
 
     try {
         let el = document.getElementById(elementID);
-        el.addEventListener("mouseover", function(event) {
+        el.addEventListener("mouseover", (e) => {
             el.style.color = "purple";
             el.style.cursor = "pointer";
             setMessage(message);
         });
-        el.addEventListener("mouseout", function(event) {
+        el.addEventListener("mouseout", (e) => {
             el.style.color = "black";
             el.style.cursor = "default";
             setMessage(message);
@@ -110,8 +110,14 @@ const init = () => {
     setupLabelRolloverMessages();
     inputForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        // let incrementDiv = document.getElementById("incrementDiv");
+        // console.log(incrementDiv);
+        // debugger;
+        // incrementDiv.innerText = parseInt(incrementDiv) ++;
+
         const zipcode = document.getElementById("zipcode").value;
-        event.target.reset();
+        // event.target.reset();
+        document.getElementById("zipcode").value = "";
 
         let isValidZip =
             /^(\d{5})?$/.test(zipcode) &&
@@ -119,51 +125,54 @@ const init = () => {
             parseInt(zipcode) <= 99950;
 
         if (isValidZip) {
-            getAQIforZipcode(zipcode).then((data) => {
-                const airQualityIndex = data.sum;
-                switch (true) {
-                    // test for good air quality
-                    case airQualityIndex > 0 && airQualityIndex <= 50:
-                        updateAqiLabel("green", airQualityIndex);
-                        break;
-                        // test for fair air quality
-                    case airQualityIndex > 50 && airQualityIndex <= 100:
-                        updateAqiLabel("olive", airQualityIndex);
-                        break;
-                    case airQualityIndex > 100 && airQualityIndex <= 150:
-                        updateAqiLabel("orange", airQualityIndex);
-                        break;
-                    case airQualityIndex > 150 && airQualityIndex <= 200:
-                        updateAqiLabel("yellow", airQualityIndex);
-                        break;
-                    case airQualityIndex > 200 && airQualityIndex <= 300:
-                        updateAqiLabel("violet", airQualityIndex);
-                        break;
-                        // test for bad air quality
-                    case airQualityIndex > 300:
-                        console.log(airQualityIndex);
-                        updateAqiLabel("red", airQualityIndex);
-                        break;
-                    default:
-                        // text = "invalid input";
-                        break;
+            getAQIforZipcode(zipcode).then(
+                ({ sum, lat, lon, no2, o3, pm10, pm2_5 }) => {
+                    // const { sum, lat, lon, no2, o3, pm10, pm2_5 } = data;
+                    const airQualityIndex = sum;
+                    switch (true) {
+                        // test for good air quality
+                        case airQualityIndex > 0 && airQualityIndex <= 50:
+                            updateAqiLabel("green", airQualityIndex);
+                            break;
+                            // test for fair air quality
+                        case airQualityIndex > 50 && airQualityIndex <= 100:
+                            updateAqiLabel("olive", airQualityIndex);
+                            break;
+                        case airQualityIndex > 100 && airQualityIndex <= 150:
+                            updateAqiLabel("orange", airQualityIndex);
+                            break;
+                        case airQualityIndex > 150 && airQualityIndex <= 200:
+                            updateAqiLabel("yellow", airQualityIndex);
+                            break;
+                        case airQualityIndex > 200 && airQualityIndex <= 300:
+                            updateAqiLabel("violet", airQualityIndex);
+                            break;
+                            // test for bad air quality
+                        case airQualityIndex > 300:
+                            console.log(airQualityIndex);
+                            updateAqiLabel("red", airQualityIndex);
+                            break;
+                        default:
+                            // text = "invalid input";
+                            break;
+                    }
+
+                    //////////////////////////UPDATE UI/////////////////////////////////////
+                    document.getElementById("lat").innerText = `${lat}`;
+                    document.getElementById("lon").innerText = `${lon}`;
+
+                    const googleMapURL = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+                    document.getElementById("map").setAttribute("href", googleMapURL);
+                    //fill in table
+                    document.getElementById("no2").innerText = no2;
+                    document.getElementById("o3").innerText = o3;
+                    document.getElementById("pm10").innerText = pm10;
+                    document.getElementById("pm25").innerText = pm2_5;
+                    //once i have all the data, display the table (hide it before since that's the default behavior)
+                    document.getElementById("table").hidden = false;
+                    //////////////////////////UPDATE UI/////////////////////////////////////
                 }
-
-                //////////////////////////UPDATE UI/////////////////////////////////////
-                document.getElementById("lat").innerText = `${data.lat}`;
-                document.getElementById("lon").innerText = `${data.lon}`;
-
-                const googleMapURL = `https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lon}`;
-                document.getElementById("map").setAttribute("href", googleMapURL);
-                //fill in table
-                document.getElementById("no2").innerText = data.no2;
-                document.getElementById("o3").innerText = data.o3;
-                document.getElementById("pm10").innerText = data.pm10;
-                document.getElementById("pm25").innerText = data.pm2_5;
-                //once i have all the data, display the table (hide it before since that's the default behavior)
-                document.getElementById("table").hidden = false;
-                //////////////////////////UPDATE UI/////////////////////////////////////
-            });
+            );
         } else {
             alert("Please enter valid Zip code.");
         }
