@@ -1,10 +1,12 @@
-#Gather Air Quality from Zip Code#
+# Gather Air Quality from Zip Code
 
-Project Description:
+## Introduction
 
 This is a simple one-page web app with a simple goal: to retrieve air quality measurements from any given U.S. zipcode
 
 We will use the OpenWeather API, which is robust and free but does require an API Key.
+
+### Project Description
 
 Calling the OpenWeather API initially returns an object which contains:
 
@@ -37,13 +39,17 @@ These values are displayed in a table once the user submits the zip code.
 
 We are then performing some simple logic on these measurements. We are summing them, and attributing a final measurement we call AQI (Air Quality index) to those lat/lon coordinates, which can be iinterpreted in the following manner:
 
-0 -50 Good (color:green)
-51-100 OK (color:olive)
-101-150 Fair (color:orange)
-151-200 Bad (color:yellow)
-201-300 Poor (color:purple)
+- 0 -50 Good (color:green)
 
-> 300 Dangerous (color:red)
+- 51-100 OK (color:olive)
+
+- 101-150 Fair (color:orange)
+
+- 151-200 Bad (color:yellow)
+
+- 201-300 Poor (color:purple)
+
+- more than 300 Dangerous (color:red)
 
 The AQI button populates a certain color for easy visual reference.
 
@@ -51,4 +57,4 @@ We are also including a simple button to link out to Google Maps to view the coo
 
 A UI library called Semantic UI is used to help beautify the page:
 
-https://semantic-ui.com/
+Semantic UI: https://semantic-ui.com/
