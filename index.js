@@ -1,51 +1,31 @@
 function getAQIforZipcode(zipcode) {
-    // Create a function which fetches a response from the OpenWeather API to get longitude and latitude values from a zipcode input
     const API_KEY = "f530d82e051f70b8678adc31245d778d";
-    //API requires an API key
+
     const ENDPOINT = `https://api.openweathermap.org/geo/1.0/zip?zip=${zipcode}&appid=${API_KEY}`;
-    //the URL we have to construct to call the API
 
-    // fetch from API and receive json object as a response
-
-    return (
-        fetch(ENDPOINT)
-        //calling the API and when we have a response, return response.JSON
+    return fetch(ENDPOINT)
         .then((response) => response.json())
-        //line 12 taking the response as a parameter as a function, returning response.json which is a function which provides a JSON version of that response
-        .then((data) => {
-            //line 13 is also a function. The data is the JSON that's being generated from the JSON function above
-            console.log(`lat:${data.lat}, lon:${data.lon}`); //logging lat/lon to console for my own reference
-            // do an error check & trigger callbackfunction and pass received lat and lon data as a parameter
 
-            try {
-                //call API function to get air quality from latitude and longitude. Saving that response as a variable
-                return getAirQualityFromLatLon(data.lat, data.lon);
-            } catch (error) {
-                // an negative value means a error has occured in retrieving getAirQualityFromLatLon
+    .then((data) => {
+            console.log(data);
+
+            console.log(`lat:${data.lat}, lon:${data.lon}`);
+            try {} catch (error) {
                 return -1;
                 console.error(error);
             }
-            // getAirQualityFromLatLon(data.lat, data.lon);
         })
-        .catch((error) => console.error("the first API fetch didnt work:", error))
-    );
+        .catch((error) => console.error("the first API fetch didnt work:", error));
 }
 
 function getAirQualityFromLatLon(lat, lon) {
     const API_KEY = "f530d82e051f70b8678adc31245d778d";
-    //on line 37 constructing the API endpoint
-    const ENDPOINT = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
-    //this is a different API which takes in the lat/lon return value from the getLatLonFromZipcode
-    //constructing an object that gets passed to application
 
-    return (
-        fetch(ENDPOINT)
-        //perform fetch/get, get the json respresentation of that response
+    const ENDPOINT = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+
+    return fetch(ENDPOINT)
         .then((response) => response.json())
         .then((data) => {
-            // calling that response data, it's the same thing as response.json. By calling the response.json() function we are getting the json object
-            //calling API that provides air quality measurements. parse the data and construct a return object
-
             const NO2 = data.list[0].components.no2;
             //nitrous dioxide
             const PM10 = data.list[0].components.pm10;
@@ -66,12 +46,8 @@ function getAirQualityFromLatLon(lat, lon) {
             // console.log("getAirQualityFromLatLon", JSON.stringify(obj));
             return obj;
         })
-        .catch((error) => console.error(error))
-    );
+        .catch((error) => console.error(error));
 }
-
-// This handler will be executed every time the cursor is moved over a different list item
-// set an event listenter on every table header label
 
 function setupLabelRolloverMessages() {
     const NO2_MESSAGE =
@@ -83,31 +59,64 @@ function setupLabelRolloverMessages() {
     const PM25MESSAGE =
         "I'm PM25, look at my younger brother PM10 for a description of what I am.";
 
-    setEventListenerOnLabel("no2_label", NO2_MESSAGE); // mouseover table header function. Wanted to capture mouseover event on a label and when there is a mouseover, display a message. Takes ID of label as parameter, the second parameter is the message. Event Listener for a mouseover event
+    setEventListenerOnLabel("no2_label", NO2_MESSAGE);
     setEventListenerOnLabel("03_label", O3_MESSAGE);
     setEventListenerOnLabel("pm10_label", PM10_MESSAGE);
     setEventListenerOnLabel("pm25_label", PM25MESSAGE);
 }
-//program gets started with the init function
-//when DOMCONTENT event is loaded, all the init function (on line 147)
+
+function setEventListenerOnLabel(elementID, message) {
+    // example argument: ('no2_label, NO2_MESSAGE)
+
+    try {
+        let el = document.getElementById(elementID);
+        el.addEventListener("mouseover", function(event) {
+            el.style.color = "purple";
+            el.style.cursor = "pointer";
+            setMessage(message);
+        });
+        el.addEventListener("mouseout", function(event) {
+            el.style.color = "black";
+            el.style.cursor = "default";
+            setMessage(message);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function updateAqiLabel(color, value) {
+    try {
+        let element = document.getElementById("aqiLabel");
+
+        element.className = "";
+        element.classList.add("ui", "big", "label", color);
+
+        document.getElementById("air-quality-index").innerText = `${Math.round(
+      value
+    )}`;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function setMessage(message) {
+    document.getElementById("message").innerHTML = message;
+}
 
 const init = () => {
     const inputForm = document.querySelector("form");
 
-    setupLabelRolloverMessages(); //labels for the UI when mouseover event happens
+    setupLabelRolloverMessages();
     inputForm.addEventListener("submit", (event) => {
-        event.preventDefault(); //when we click submit, it tries to post to server. We are preventing that default behavior because I am handling logic.
-        //we capture the zipcode. on submit, run the function instead of submitting form.
-        const zipcode = document.getElementById("zipcode").value; //getting the zipcode from the form HTML ELement
-        // validate zipcode
-        // 00001 – 99950
+        event.preventDefault();
+        const zipcode = document.getElementById("zipcode").value;
+        event.target.reset();
+
         let isValidZip =
-            //Using RegEx expression logic below to test for five numbers betwen the range
-            //isValidZip is a boolean. Is this a valid zipcode?
-            /^(\d{5})?$/.test(zipcode) && //regExp has a method on it called test. takes string and tests it against RegExp. Returns a boolean value
+            /^(\d{5})?$/.test(zipcode) &&
             parseInt(zipcode) > 0 &&
             parseInt(zipcode) <= 99950;
-        //if it's valid, then we are pulling the main function which is returning AQI data.
 
         if (isValidZip) {
             getAQIforZipcode(zipcode).then((data) => {
@@ -139,13 +148,11 @@ const init = () => {
                         // text = "invalid input";
                         break;
                 }
-                // adding logic for lat and lon display
-                //updating the UI with the data that I got back. Updating the DOM with data I got back
 
                 //////////////////////////UPDATE UI/////////////////////////////////////
                 document.getElementById("lat").innerText = `${data.lat}`;
                 document.getElementById("lon").innerText = `${data.lon}`;
-                //added google map URL
+
                 const googleMapURL = `https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lon}`;
                 document.getElementById("map").setAttribute("href", googleMapURL);
                 //fill in table
@@ -163,59 +170,4 @@ const init = () => {
     });
 };
 
-//when DOMCONTENTLoaded is loaded, the initialization function gets called (on line 147)
 document.addEventListener("DOMContentLoaded", init);
-
-//when mousing over the label, a description is displayed
-//finding element based on its id
-function setEventListenerOnLabel(elementID, message) {
-    // example argument: ('no2_label, NO2_MESSAGE)
-    //passing a string as am ID below. Could be an error if ID doesn't match. Built try catch
-    try {
-        let el = document.getElementById(elementID);
-        el.addEventListener("mouseover", function(event) {
-            el.style.color = "purple"; // change label color to red on mouseover
-            el.style.cursor = "pointer";
-            setMessage(message);
-        });
-        el.addEventListener("mouseout", function(event) {
-            el.style.color = "black";
-            el.style.cursor = "default";
-            setMessage(message);
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-//added Event Listener on 'onclick' event
-//this is for the Reset button. This gets called by the Reset button. It resets the text on the field when Reset is hit.
-function resetForm() {
-    // document.getElementById("zipcode").value = ""; Not needed anymyore since I opted for page reload.
-    location.reload();
-}
-
-function updateAqiLabel(color, value) {
-    //putting this in a try/catch because it could fail if the aqiLabel ID isn't fetched correctly from the HTML file
-    try {
-        // set label color
-        let element = document.getElementById("aqiLabel");
-        //set class to empty because otherwise color was getting added and appended in a weird way. better to reset class this way.
-        element.className = ""; // reset to emplty class list
-        element.classList.add("ui", "big", "label", color);
-
-        // label value
-        document.getElementById("air-quality-index").innerText = `${Math.round(
-      value
-    )}`;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-//given a message string, update the message container
-//sets description when mouseover one of the labels
-function setMessage(message) {
-    // updates message, setting the property to the message
-    document.getElementById("message").innerHTML = message;
-}
