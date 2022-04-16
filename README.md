@@ -29,10 +29,10 @@ We are then using the data points of latitude and longitude to retrieve the Air 
 This second API response returns a new object containing some useful information for us:
 
 1. Coordinates from the specified location (latitude, longitude)
-2. Сoncentration of NO2 (Nitrogen dioxide)
-3. Сoncentration of O3 (Ozone)
-4. Сoncentration of PM2.5 (Fine particles matter)
-5. Сoncentration of PM10 (Coarse particulate matter)
+2. concentration of NO2 (Nitrogen dioxide)
+3. concentration of O3 (Ozone)
+4. concentration of PM2.5 (Fine particles matter)
+5. concentration of PM10 (Coarse particulate matter)
 
 These values are displayed in a table once the user submits the zip code.
 
