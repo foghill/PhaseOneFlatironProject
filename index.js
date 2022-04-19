@@ -1,5 +1,5 @@
 function getAQIforZipcode(zipcode) {
-  const API_KEY = "f530d82e051f70b8678adc31245d778d";
+  const API_KEY = "APIKEYHERE";
 
   const ENDPOINT = `https://api.openweathermap.org/geo/1.0/zip?zip=${zipcode}&appid=${API_KEY}`;
 
@@ -20,7 +20,7 @@ function getAQIforZipcode(zipcode) {
 }
 
 function getAirQualityFromLatLon(lat, lon) {
-  const API_KEY = "f530d82e051f70b8678adc31245d778d";
+  const API_KEY = "APIKEYHERE";
 
   const ENDPOINT = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
 
@@ -105,6 +105,14 @@ function setMessage(message) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const imgButton = document.getElementById("imageButton");
+  let imageDiv = document.getElementById("mainDiv");
+  imgButton.addEventListener("click", (event) => {
+    let image = document.createElement("img");
+    imageDiv.append(image);
+    console.log(image);
+  });
+
   const inputForm = document.querySelector("form");
 
   setupLabelRolloverMessages();
@@ -174,3 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// //button that will append an image on top of Air Quality
+// // click event, append fakeURL
+
+// imgButton.addEventListener("click", (event) => {
+//   event.preventDefault();
+//   // h1.append();
+// });
